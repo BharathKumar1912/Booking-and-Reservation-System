@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Available Services</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Navigation bar -->
+  <nav>
+    <a href="index.html">Register</a> |
+    <a href="services.html">Services</a> |
+    <a href="booking.html">Book a Service</a>
+  </nav>
+  <hr>
+
+  <h1>Available Services</h1>
+  <ul id="servicesList"></ul>
+
+  <script>
+    // Fetch services from backend
+    fetch('/services')
+      .then(response => response.json())
+      .then(data => {
+        const list = document.getElementById('servicesList');
+        data.forEach(service => {
+          const item = document.createElement('li');
+          item.textContent = `${service.name} - ${service.description} - ₹${service.price}`;
+          list.appendChild(item);
+        });
+      })
+      .catch(err => console.error('Error fetching services:', err));
+  </script>
+</body>
+</html>
+
